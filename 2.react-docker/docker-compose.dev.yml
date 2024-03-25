@@ -1,14 +1,16 @@
 version: "3.8"
 services:
   app:
-    container_name: react-docker
-    image: react-docker
+    container_name: react-docker-dev
+    image: react-docker-dev
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./docker/dev/Dockerfile.dev
       target: development
     ports:
-      - "5177:5173"
+      - "5177:${PORT}"
+    env_file:
+      - .env
     volumes:
       - type: bind
         source: ./index.html
