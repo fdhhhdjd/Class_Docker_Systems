@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+    node_docker:
+        container_name: node_docker
+        restart: always
+        build:
+            context: .
+            dockerfile: ./docker/dev/Dockerfile.dev
+            target: development
+        environment:
+            NODE_ENV: developer
+        ports:
+            - "5001:${PORT}"
+        volumes:
+            - './src:/usr/src/app/src'
+        env_file:
+            - .env
+        command: npm run dev
+        networks:
+            - node-docker
+
+networks:
+    node-docker:
+        driver: bridge
