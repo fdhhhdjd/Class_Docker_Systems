@@ -12,3 +12,9 @@
     su - ${USER}
     # restart computer is yet 
 ```
+
+## 2. Hello Docker
+```bash
+    docker build -t hello-docker .
+    docker run hello-docker
+```
