@@ -11,7 +11,7 @@ services:
         environment:
             NODE_ENV: developer
         ports:
-            - "5001:${PORT}"
+            - "${PORT_PUBLIC}:${PORT}"
         volumes:
             - './src:/usr/src/app/src'
         env_file:
@@ -19,6 +19,11 @@ services:
         command: npm run dev
         networks:
             - node-docker
+        healthcheck:
+            test: ["CMD", "sh", "-c", "wget localhost:${PORT_PUBLIC}/api/v1 -q -O - > /dev/null 2>&1 && wget localhost:${PORT_PUBLIC}/api/v1 -q -O - > /dev/null 2>&1"]
+            interval: 60s
+            timeout: 2s
+            retries: 3            
 
 networks:
     node-docker:

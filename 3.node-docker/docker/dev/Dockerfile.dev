@@ -10,9 +10,4 @@ COPY package*.json ./
 RUN npm install --no-optional && \
     npm cache clean --force 
 
-# Copy Soucre code 
 COPY . . 
-
-# Check health container
-HEALTHCHECK --interval=60s --timeout=2s --retries=3 \
-    CMD sh -c "wget localhost:5000/api/v1 -q -O - > /dev/null 2>&1 && wget localhost:5000/api/v1 -q -O - > /dev/null 2>&1"
