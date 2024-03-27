@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+    redis-docker:
+        container_name: redis-docker
+        build:
+            dockerfile: ./docker/dockerfile
+            context: .
+        restart: always
+        environment:
+            - REDIS_PASSWORD=${REDIS_PASSWORD}
+        command: /usr/local/bin/script/start_redis.sh  
+        env_file:
+            - .env
+        volumes:
+            - ./redis/data:/data/
+            # - ./script:/usr/local/bin/script/
+            # - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+        ports:
+            - ${REDIS_PORT}:${REDIS_PORT}
+        networks:
+            - redis-docker
+        healthcheck:
+            test: ['CMD-SHELL', 'redis-cli -h localhost -a $REDIS_PASSWORD ping']
+            interval: 30s
+            timeout: 10s
+            retries: 5
+networks:
+    redis-docker:
+        driver: bridge
+volumes:
+    redis:
+        driver: local
