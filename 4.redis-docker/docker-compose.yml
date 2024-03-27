@@ -13,7 +13,6 @@ services:
             - .env
         volumes:
             - ./redis/data:/data/
-            # - ./script:/usr/local/bin/script/
             # - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
         ports:
             - ${REDIS_PORT}:${REDIS_PORT}

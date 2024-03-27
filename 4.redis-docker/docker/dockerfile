@@ -1,10 +1,18 @@
 FROM redis:latest
 
+
+# Create folders
+RUN mkdir -p /usr/local/bin/script/logs && \
+    touch /usr/local/bin/script/logs/log_script_redis_date.txt && \
+    chmod -R 600 /usr/local/bin/script/logs
+
+
 RUN apt-get update && \
-    apt-get install -y nano
+    apt-get install -y logrotate nano
 
 COPY ./script/ /usr/local/bin/script/
 COPY ./redis/redis.conf /usr/local/etc/redis/redis.conf
+COPY ./logs/logrotate.conf /usr/local/bin/logs/
 
-RUN chmod +x /usr/local/bin/script/start_redis.sh
 RUN chmod +x /usr/local/bin/script/script_redis.sh
+RUN chmod 0644 /usr/local/bin/logs/logrotate.conf
