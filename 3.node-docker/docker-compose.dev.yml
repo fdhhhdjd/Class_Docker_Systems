@@ -10,17 +10,21 @@ services:
             target: development
         environment:
             NODE_ENV: developer
+            # Limit size Old Generation because it save data old and very long
+            NODE_OPTIONS: "--max-old-space-size=512"
         ports:
             - "${PORT_PUBLIC}:${PORT}"
         volumes:
-            - './src:/usr/src/app/src'
+            # Only have permisstion is read Can not write
+            - './src:/usr/src/app/src:ro' 
         env_file:
             - .env
         command: npm run dev
         networks:
             - node-docker
         healthcheck:
-            test: ["CMD", "sh", "-c", "wget localhost:${PORT_PUBLIC}/api/v1 -q -O - > /dev/null 2>&1 && wget localhost:${PORT_PUBLIC}/api/v1 -q -O - > /dev/null 2>&1"]
+            # Example on code sh -c "curl http://localhost:5001/api/v1"
+            test: ["CMD", "sh", "-c", "curl -sSf http://localhost:${PORT_PUBLIC}/api/v1 > /dev/null"]
             interval: 60s
             timeout: 2s
             retries: 3            
