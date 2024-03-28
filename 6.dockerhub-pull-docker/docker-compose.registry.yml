@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+    backend:
+        container_name: node_registr_pull
+        image: nguyentientai/class_fullstack:node-docker-taidev
+        ports:
+            - "${PORT_PUBLIC}:${PORT_PRIVATE}"
+        env_file:
+            - .env
+        command: npm run dev
+        networks:
+            - node-docker
+        healthcheck:
+            test: ["CMD", "sh", "-c", "curl -sSf http://localhost:${PORT_PUBLIC}/api/v1 > /dev/null"]
+            interval: 60s
+            timeout: 2s
+            retries: 3                    
+networks:
+    node-docker:
+        driver: bridge
