@@ -24,10 +24,18 @@
     docker run hello-docker
 ```
 
-## 2. React Docker
+## 3. React Docker
 ```bash
     docker image build -t react-docker . && docker run react-docker
     docker run -p 5173:5173 react-docker
     docker container prune
     docker compose up -d --build
+```
+
+## 4. Restarted Docker
+
+```bash 
+    sudo systemctl restart docker.socket docker.service
+    # Move image
+    sudo docker image rm -f $(sudo docker image ls -q)
 ```
