@@ -1,7 +1,6 @@
 version: "3.8"
 
 services:
-  ###* MongoDB ###
   mongodb-docker:
     container_name: mongodb-docker
     image: mongo:latest
@@ -25,7 +24,6 @@ services:
     networks:
       - mongodb-network 
 
-###* NETWORD GENERAL ###
 networks:
   mongodb-network:
     driver: bridge
