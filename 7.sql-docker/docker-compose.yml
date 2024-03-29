@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  ###* PG4 ###
+  postgresql:
+    container_name: postgresql
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: "${POSTGRES_DB}"
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      PGDATA: "/data/postgres"
+    volumes:
+      - db_data/:/var/lib/postgresql/data/postgres/
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "${POSTGRES_PORT_PUBLIC}:${POSTGRES_PORT_PRIVATE}"
+    env_file:
+      - .env
+    networks:
+      - sql-docker
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'",
+        ]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+###* NETWORD GENERAL ###
+networks:
+  sql-docker:
+    driver: bridge
+volumes:
+  db_data:
+    driver: local
