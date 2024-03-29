@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+    service_student:
+        container_name: service_student
+        image: nguyentientai/class_fullstack:node-docker-taidev
+        env_file:
+            - .env
+        command: npm run dev
+        networks:
+          - nginx-proxy       
+
+    nginx-proxy:
+      image: nginx:latest
+      container_name: nginx-proxy
+      restart: always
+      depends_on:
+          - service_student     
+      networks:
+        - nginx-proxy
+      ports:
+        - "81:80"
+      volumes:
+        - ./conf.d:/etc/nginx/conf.d:ro
+        - ./snippets:/etc/nginx/snippets:ro
+networks:
+  nginx-proxy:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+    driver: local
