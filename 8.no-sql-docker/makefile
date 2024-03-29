@@ -6,7 +6,7 @@ export $(shell sed 's/=.*//' .env)
 DOCKER_COMPOSE := docker-compose.yml
 DOCKER_COMPOSE_REGISTRY := docker-compose.registry.yml
 
-DOCKER_IMAGE_NAME := nguyentientai/class_fullstack:postgres-docker
+DOCKER_IMAGE_NAME := nguyentientai/class_fullstack:mongodb-docker
 DOCKERFILE_PATH := ./docker/dev/Dockerfile.dev
 
 # Run auto
