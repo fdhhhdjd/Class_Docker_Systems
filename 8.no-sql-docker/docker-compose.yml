@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  ###* MongoDB ###
+  mongodb-docker:
+    container_name: mongodb-docker
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: "${MONGO_INITDB_DATABASE}"
+      MONGO_INITDB_ROOT_USERNAME: "${MONGO_INITDB_ROOT_USERNAME}" 
+      MONGO_INITDB_ROOT_PASSWORD: "${MONGO_INITDB_ROOT_PASSWORD}"
+    env_file:
+      - .env
+    volumes:
+      - ./mongo-entrypoint:/docker-entrypoint-initdb.d
+      - mongodb_data:/data/db 
+    ports:
+      - "${MONGO_PORT_PUBLIC}:${MONGO_PORT_PRIVATE}" 
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@${MONGO_INITDB_ROOT_HOST}:${MONGO_PORT_PUBLIC}/?authSource=${MONGO_INITDB_DATABASE} --quiet
+      interval: 30s
+      timeout: 10s
+      retries: 5      
+    networks:
+      - mongodb-network 
+
+###* NETWORD GENERAL ###
+networks:
+  mongodb-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+    driver: local
