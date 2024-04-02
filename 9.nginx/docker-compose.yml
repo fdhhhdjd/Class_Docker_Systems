@@ -23,6 +23,7 @@ services:
       volumes:
         - ./conf.d:/etc/nginx/conf.d:ro
         - ./snippets:/etc/nginx/snippets:ro
+        - ./html:/usr/share/nginx/html
 networks:
   nginx-proxy:
     driver: bridge

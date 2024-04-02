@@ -1,8 +1,5 @@
 .env
 conf.d/*
-!conf.d/custom-nginx
-!conf.d/default.conf
-!conf.d/example.com
 ssl
 !ssl/cli.ini
 ssl-log
