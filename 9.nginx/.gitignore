@@ -1,5 +1,4 @@
 .env
-conf.d/*
 ssl
 !ssl/cli.ini
 ssl-log
