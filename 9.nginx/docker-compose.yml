@@ -8,8 +8,11 @@ services:
           - nginx-proxy       
 
     nginx-proxy:
-      image: nginx:latest
+      # image: nginx:latest
       container_name: nginx-proxy
+      build:
+          dockerfile: ./docker/dockerfile
+          context: .
       restart: always
       depends_on:
           - service_student     
@@ -23,7 +26,7 @@ services:
         - ./conf.d:/etc/nginx/conf.d:ro
         - ./snippets:/etc/nginx/snippets:ro
         - ./html:/usr/share/nginx/html:ro
-        - ./assets:/usr/share/nginx/assets
+        - ./assets:/usr/share/nginx/assets:ro
 networks:
   nginx-proxy:
     driver: bridge
