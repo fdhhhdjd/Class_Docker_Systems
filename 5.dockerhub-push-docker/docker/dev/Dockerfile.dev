@@ -11,3 +11,5 @@ RUN npm install --no-optional && \
     npm cache clean --force 
 
 COPY . . 
+
+CMD ["npm", "run", "dev"]

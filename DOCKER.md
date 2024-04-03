@@ -39,3 +39,9 @@
     # Move image
     sudo docker image rm -f $(sudo docker image ls -q)
 ```
+
+## 5. Used image
+```
+    docker pull nguyentientai/class_fullstack:node-docker-taidev
+    docker run -d -p 5000:5004 --name my_container nguyentientai/class_fullstack:node-docker-taidev
+```

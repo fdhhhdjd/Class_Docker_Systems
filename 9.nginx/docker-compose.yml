@@ -19,7 +19,7 @@ services:
       networks:
         - nginx-proxy
       ports:
-        - "81:80"
+        - "80:80"
       volumes:
         - ./conf.d:/etc/nginx/conf.d:ro
         - ./snippets:/etc/nginx/snippets:ro
