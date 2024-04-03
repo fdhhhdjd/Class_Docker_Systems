@@ -11,6 +11,6 @@ encrypted_password=$(openssl passwd -apr1 "$password")
 
 echo "$username:$encrypted_password" >> "$FOLDER_PASSWORD"
 
-echo "Tạo tài khoản thành công 😍"
+echo "Created account success 😍"
 
 nginx -s reload
