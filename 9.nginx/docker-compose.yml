@@ -4,9 +4,6 @@ services:
     service_student:
         container_name: service_student
         image: nguyentientai/class_fullstack:node-docker-taidev
-        env_file:
-            - .env
-        command: npm run dev
         networks:
           - nginx-proxy       
 
@@ -16,14 +13,17 @@ services:
       restart: always
       depends_on:
           - service_student     
+      env_file:
+          - .env          
       networks:
         - nginx-proxy
       ports:
-        - "80:80"
+        - "${PORT_NGINX}:${PORT_NGINX}"
       volumes:
         - ./conf.d:/etc/nginx/conf.d:ro
         - ./snippets:/etc/nginx/snippets:ro
-        - ./html:/usr/share/nginx/html
+        - ./html:/usr/share/nginx/html:ro
+        - ./assets:/usr/share/nginx/assets
 networks:
   nginx-proxy:
     driver: bridge

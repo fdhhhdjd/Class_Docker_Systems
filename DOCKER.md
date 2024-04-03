@@ -45,3 +45,14 @@
     docker pull nguyentientai/class_fullstack:node-docker-taidev
     docker run -d -p 5000:5004 --name my_container nguyentientai/class_fullstack:node-docker-taidev
 ```
+
+## 6. Check port and kill 
+```
+    sudo apt update
+    sudo apt install net-tools
+    sudo ss -tuln | grep :<port>
+    sudo netstat -tuln | grep :<port>
+    sudo kill <ID>
+    sudo fuser -k 81/tcp
+```
+

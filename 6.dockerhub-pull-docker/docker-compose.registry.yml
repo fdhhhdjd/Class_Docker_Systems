@@ -8,7 +8,6 @@ services:
             - "${PORT_PUBLIC}:${PORT_PRIVATE}"
         env_file:
             - .env
-        command: npm run dev
         networks:
             - node-docker
         healthcheck:
