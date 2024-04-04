@@ -35,3 +35,26 @@
 ## 4. Deployment > Option new Deployment > Deployment
 
 
+## 5. Send email with docs excel 
+
+```
+    function sendEmail(e) {
+    const name = e.values[1];
+    const reward = e.values[2];
+    const phone = e.values[3];
+    const recipientEmail = "a@gmail.com, b@gmail.com"; 
+    const subject = `${name} Just register advise now`;
+    const message = "<p><b>Name:</b> " + name + "</p><p><b>Reward:</b> " + reward + "</p><p><b>Phone:</b> " + phone + "</p>";
+    MailApp.sendEmail({
+        to: recipientEmail,
+        subject: subject,
+        htmlBody: message
+    });
+}
+
+```
+
+## 6. Trigger > add Trigger > 
+![alt text](./assets/trigger.png)
+
+
