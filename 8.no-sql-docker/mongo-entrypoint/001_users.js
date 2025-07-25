@@ -1,10 +1,19 @@
+db = db.getSiblingDB("class02");
+
 db.createUser({
-    user: "how_are_you",
-    pwd: "password",
-    roles: [
-        { role: "readWrite", db: "class_docker" }
-    ]
+  user: "taiuser",
+  pwd: "password123",
+  roles: [
+    { role: "readWrite", db: "class02" }
+  ]
 });
 
+db.createUser({
+    user: "readonlyuser",
+    pwd: "readonly123",
+    roles: [
+      { role: "read", db: "class02" }
+    ]
+  })
 
-print('====================== CREATE USER OK FILE 0001 =====================');
+  print('====================== CREATE USER OK FILE 0001 =====================');
